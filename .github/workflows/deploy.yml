@@ -18,9 +18,26 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
         script: |
-          cd /home/deployer/app
-          git pull origin main || git clone https://github.com/Angelito-Alit/vps.git .
-          docker-compose down
+          set -e
+          cd ~/app
+          
+          if [ -d ".git" ]; then
+            echo "Actualizando repositorio..."
+            git pull origin main
+          else
+            echo "Clonando repositorio..."
+            git clone https://github.com/Angelito-Alit/vps.git .
+          fi
+          
+          echo "Deteniendo contenedores anteriores..."
+          docker-compose down || true
+          
+          echo "Construyendo y levantando contenedores..."
           docker-compose up -d --build
-          echo "✅ Despliegue completado!"
+          
+          echo "Estado de contenedores:"
+          docker ps
+          
+          echo " ¡Despliegue completado!"
