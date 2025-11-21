@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPS + NGINX + Docker + Pipeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 600px;
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 10px 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .status {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f0f9ff;
+            border-left: 5px solid #667eea;
+            border-radius: 10px;
+        }
+        
+        .status h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .check-list {
+            text-align: left;
+            margin: 20px 0;
+        }
+        
+        .check-item {
+            padding: 10px;
+            margin: 10px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .check-item::before {
+            content: "✅";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        
+        .info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 10px;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            background: #764ba2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Despliegue Exitoso!</h1>
+        
+        <div class="badge">NGINX</div>
+        <div class="badge">Docker</div>
+        <div class="badge">GitHub Actions</div>
+        
+        <div class="status">
+            <h2>Estado del Sistema</h2>
+            <div class="check-list">
+                <div class="check-item">VPS Configurado</div>
+                <div class="check-item">NGINX Funcionando</div>
+                <div class="check-item">Docker Activo</div>
+                <div class="check-item">Pipeline Ejecutado</div>
+            </div>
+        </div>
+        
+        <div class="info">
+            <strong>IP del Servidor:</strong> 34.171.45.30<br>
+            <strong>Usuario:</strong> deployer<br>
+            <strong>Contenedor:</strong> vps-web<br>
+            <strong>Despliegue:</strong> <span id="datetime"></span>
+        </div>
+        
+        <a href="https://github.com/Angelito-Alit/vps" class="btn" target="_blank">
+            Ver Repositorio en GitHub
+        </a>
+        
+        <div class="footer">
+            <p>Proyecto: VPS + NGINX + Docker + CI/CD Pipeline</p>
+            <p>© 2025 2022371110</p>
+        </div>
+    </div>
+    
+    <script>
+        // Mostrar fecha y hora actual
+        document.getElementById('datetime').textContent = new Date().toLocaleString('es-MX');
+    </script>
+</body>
+</html>
