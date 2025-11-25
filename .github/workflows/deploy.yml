@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: Blue-Green Deploy to VPS
 
 on:
   push:
@@ -23,21 +23,31 @@ jobs:
           set -e
           cd ~/app
           
+          echo "📦 Actualizando código..."
           if [ -d ".git" ]; then
-            echo "Actualizando repositorio..."
             git pull origin main
           else
-            echo "Clonando repositorio..."
             git clone https://github.com/Angelito-Alit/vps.git .
           fi
           
-          echo "Deteniendo contenedores anteriores..."
-          docker compose down || true
+          echo "🔍 Detectando ambiente activo..."
+          ACTIVE=$(grep "server blue:80" nginx.conf)
           
-          echo "Construyendo y levantando contenedores..."
-          docker compose up -d --build
+          if [ -n "$ACTIVE" ]; then
+            echo "🔵 BLUE está activo, desplegando en GREEN..."
+            TARGET="green"
+          else
+            echo "🟢 GREEN está activo, desplegando en BLUE..."
+            TARGET="blue"
+          fi
           
-          echo "Estado de contenedores:"
+          echo "🐳 Reconstruyendo contenedor $TARGET..."
+          docker compose up -d --build $TARGET
+          
+          echo "⏳ Esperando 5 segundos para estabilización..."
+          sleep 5
+          
+          echo "✅ Contenedor $TARGET listo"
+          echo "💡 Para hacer el switch ejecuta: ./switch.sh"
+          
           docker ps
-          
-          echo "¡Despliegue completado!"
